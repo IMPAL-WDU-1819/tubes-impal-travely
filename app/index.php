@@ -4,7 +4,7 @@ require 'vendor/autoload.php';
 
 $klein = new \Klein\Klein();
 
-// HTTP errors
+// HTTP error handlers
 $klein->onHttpError(function ($code, $router) {
     switch ($code) {
         case 404:
@@ -19,7 +19,7 @@ $klein->onHttpError(function ($code, $router) {
     }
 });
 
-// Routes
+// Route handlers
 $klein->respond('GET', '/', function ($request, $response, $service) {
     $service->render('views/index.html');
 });
@@ -32,7 +32,7 @@ $klein->respond('GET', '/register', function ($request, $response, $service) {
     $service->render('views/register.html');
 });
 
-// Route namespaces
+// Route with namespace handlers
 $klein->with('/admin', function () use ($klein) {
     $klein->respond('GET', '/refund', function ($request, $response, $service) {
         $service->render('views/admin/refund.html');
