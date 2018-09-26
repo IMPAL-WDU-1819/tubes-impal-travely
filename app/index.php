@@ -32,6 +32,10 @@ $klein->respond('GET', '/register', function ($request, $response, $service) {
     $service->render('views/register.html');
 });
 
+$klein->respond('GET', '/schedule', function ($request, $response, $service) {
+    $service->render('views/schedule.html');
+});
+
 // Route namespaces
 $klein->with('/admin', function () use ($klein) {
     $klein->respond('GET', '/refund', function ($request, $response, $service) {
