@@ -43,3 +43,4 @@
 - [x] Struktur dasar aplikasi
 - [ ] Desain antarmuka
 - [ ] Implementasi diagram kelas
+- [ ] Tambah unit test
