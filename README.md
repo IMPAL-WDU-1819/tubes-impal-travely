@@ -1,6 +1,6 @@
 # tubes-impal-travely
 
-<p>Implementasi program</p>
+<p>Implementasi dan pengujian program</p>
 <br />
 
 ### Struktur Direktori
@@ -24,16 +24,16 @@
 <p>Pastikan Anda sudah berada pada direktori repository ini.</p>
 <br />
 
-<p>Clone atau download repo ini</p>
+<p>1. Clone atau download repo ini</p>
 <p><code>git clone https://github.com/IMPAL-WDU-1819/tubes-impal-travely.git</code></p>
 <br />
 
-<p>Perbarui dependencies</p>
+<p>2. Perbarui dependencies</p>
 <p><code>cd app</code></p>
 <p><code>composer update</code></p>
 <br />
 
-<p>Jalankan di server lokal</p>
+<p>3. Jalankan di server lokal</p>
 <p><code>php -S localhost:8000</code></p>
 <br />
 
@@ -43,3 +43,4 @@
 - [x] Struktur dasar aplikasi
 - [ ] Desain antarmuka
 - [ ] Implementasi diagram kelas
+- [ ] Buat unit test
