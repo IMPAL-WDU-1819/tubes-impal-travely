@@ -1,0 +1,11 @@
+{
+  "require": {
+    "klein/klein": "^2.1",
+    "catfan/medoo": "^1.6",
+    "latte/latte": "^2.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7",
+   	"guzzlehttp/guzzle": "^6.1"
+  }
+}

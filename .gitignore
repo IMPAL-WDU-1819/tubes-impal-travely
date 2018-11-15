@@ -1,1 +1,4 @@
-/app/vendor
+.DS_Store
+.*.swp
+.git/
+/app/src/vendor
