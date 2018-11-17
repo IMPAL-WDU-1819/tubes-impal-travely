@@ -37,10 +37,15 @@
 <p><code>php -S localhost:8000</code></p>
 <br />
 
+### Unit Test
+<p>Jalankan perintah dibawah pada command prompt atau terminal untuk melakukan unit testing menggunakan PHPUnit</p>
+<p><code>./vendor/bin/phpunit --bootstrap vendor/autoload.php --testdox tests</code></p>
+<br />
+
 ### Todo
 - [x] Buat README
 - [ ] DDL dan DML
 - [x] Struktur dasar aplikasi
 - [ ] Desain antarmuka
 - [ ] Implementasi diagram kelas
-- [ ] Buat unit test
+- [x] Buat unit test
