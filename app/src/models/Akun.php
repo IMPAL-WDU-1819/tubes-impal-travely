@@ -1,26 +1,16 @@
 <?php
 
 require 'vendor/autoload.php';
+require_once 'Base.php';
 
-use Medoo\Medoo;
-
-$database = new Medoo([
-  'database_type' => 'mysql',
-  'database_name' => 'travely',
-  'server' => 'localhost:3306',
-  'username' => 'root',
-  'password' => 'root'
-]);
-
-class Akun {
+class Akun extends Base {
   public $idAkun;
   public $email;
   public $nama;
   public $password;
 
   public function cekAkun($email) {
-    global $database;
-    $data = $database->select('akun', 
+    $data = $this->db->select('akun', 
       ['email'], 
       [],
       ['email' => $email]
@@ -30,8 +20,7 @@ class Akun {
   }
 
   public function buatAkun($email, $password) {
-    global $database;
-    $insert = $database->insert('akun', 
+    $insert = $this->db->insert('akun', 
       ['email' => $email, 'password' => $password]
     );
 
@@ -39,8 +28,7 @@ class Akun {
   }
 
   public function getAkun($email, $password) {
-    global $database;
-    $data = $database->select('akun', 
+    $data = $this->db->select('akun', 
       ['email'], 
       [],
       ['email' => $email, 'password' => $password]

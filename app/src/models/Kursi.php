@@ -1,9 +1,8 @@
 <?php
 
 require 'vendor/autoload.php';
+require_once 'Base.php';
 
-use Medoo\Medoo;
+class Kursi extends Base {
 
-class Kursi {
-	
 }

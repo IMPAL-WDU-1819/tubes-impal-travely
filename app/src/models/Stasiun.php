@@ -1,29 +1,19 @@
 <?php
 
 require 'vendor/autoload.php';
+require_once 'Base.php';
 
-use Medoo\Medoo;
+class Stasiun extends Base {
+  public $idStasiun;
+  public $namaStasiun;
+  public $domisili;  
 
-$database = new Medoo([
-  'database_type' => 'mysql',
-  'database_name' => 'travely',
-  'server' => 'localhost:3306',
-  'username' => 'root',
-  'password' => 'root'
-]);
-
-class Stasiun {
-	public $idStasiun;
-	public $namaStasiun;
-	public $domisili;  
-
-	public function getDomisili() {
-		global $database;
-		$data = $database->select('stasiun', [
-				'[><]domisili' => ['domisili' => 'id_domisili']
-			],
-			'domisili.nama_domisili'
-		);
-		return json_encode($data);
-	}
+  public function getDomisili() {
+    $data = $this->db->select('stasiun', [
+      '[><]domisili' => ['domisili' => 'id_domisili']
+    ],
+    'domisili.nama_domisili'
+  );
+    return json_encode($data);
+  }
 }

@@ -1,9 +1,15 @@
 <?php
 
 require 'vendor/autoload.php';
+require_once 'Base.php';
 
-use Medoo\Medoo;
+class Jadwal extends Base {
+  public $idJadwal;
+  public $asal;
+  public $tujuan;
+  public $tanggal;
 
-class Jadwal {
-	
+  public function cariJadwal($asal, $tujuan, $tanggal) {
+    // Get data
+  } 
 }
