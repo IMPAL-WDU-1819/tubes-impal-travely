@@ -10,10 +10,10 @@ class Base {
   public function __construct() {
     $this->db = new Medoo([
       'database_type' => 'mysql',
-      'dataase_name' => 'travely',
-      'server' => 'localhost:3306',
+      'database_name' => 'travely',
+      'server' => 'localhost',
       'username' => 'root',
-      'password' => 'root'
+      'password' => ''
     ]);
   }
 }

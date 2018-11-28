@@ -6,7 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="../../public/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../../public/css/extra.css">
-	<title>Cetak E-Ticket</title>
+	<title>Konfirmasi Bayar</title>
 </head>
 <body>
 	<section id="nav">
@@ -44,34 +44,43 @@
 	</section>
 	<section id="content">
 		<div class="container">
-			<div class="row">
-                <div class="col-2">
-                </div>
-				<div class="col-8">
+            <div class="row">
+                <div class="col-7">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Cetak E-Ticket</h4>
+                            <h5>Transfer/ATM</h5>
                         </div>
                         <div class="card-body">
+                            <h6>Tujuan Pembayaran: Nama Bank</h6>
+                            <p>Silahkan Transfer Sebesar Rp.1000 ke 45000001 atas nama Travely</p>
+                            <br>
                             <div class="row">
-                                <div class="col justify-content-center">
-                                    <p class="text-center">Pembayaran anda telah dikonfirmasi, E-Ticket anda sudah diproses dan dapat diunduh.</p>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-9">
-                                        </div>
-                                        <div class="col-3">
-                                            <button type="submit" class="btn btn-primary btn-block">Unduh</button>
+                                <div class="col-4">
+                                    <p>Bukti Pembayaran:</p>  
+                                </div>
+                                <br>
+                                <div class="col-8">
+                                    <div class="input-group mb-3">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="inputGroupFile02">
+                                            <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-				</div>
-                <div class="col-2">
                 </div>
-			</div>
+                <div class="col-5">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <p>Dengan menekan tombol dibawah berarti anda sudah membaca dan menyetujui Travely terms & Condition dan Privacy Policy</p>
+                    <button type="submit" class="btn btn-primary btn-block">Konfirmasi Pembayaran</button>
+                </div>
+            </div>     
 		</div>
 	</section>	
 	<script src="../../public/js/jquery-3.3.1.slim.min.js"></script>

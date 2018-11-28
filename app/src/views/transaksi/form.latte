@@ -4,8 +4,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link rel="stylesheet" href="../public/css/bootstrap.min.css">
-	<link rel="stylesheet" href="../public/css/extra.css">
+	<link rel="stylesheet" href="../../public/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../../public/css/extra.css">
 	<title>Form Pemesanan</title>
 </head>
 <body>
@@ -45,67 +45,70 @@
 	<section id="content">
 		<div class="container">
 			<div class="row">
-				<div class="col-3">
+				<div class="col-7">
 					<div class="card">
 						<div class="card-header">
-							<h4 class="card-title">Filter Pencarian</h4>
+							<h4 class="card-title">Informasi Pemesan</h4>
 						</div>
 						<div class="card-body">
-							<div class="row-2">
-								<h6 class="card-title">Tanggal Keberangkatan</h6>
-								<input type="date" name="tanggal" class="form-control">
+							<div class="container">
+								<div class="row">
+									<div class="col-12">
+										<h6>Nama</h6>
+										<input type="text" name="nama" class="form-control">
+									</div>
+								</div>
+								<br>
+								<div class="row">
+									<div class="col-6">
+										<h6>Nomor Telepon</h6>
+										<input type="text" name="jumlah" class="form-control">
+									</div>
+									<div class="col-6">
+										<h6>Email</h6>
+										<input type="text" name="email" class="form-control">
+									</div>
+								</div>
+								<br>
+								<div class="row">
+									<div class="col-6">
+										<h6>Nomor Kursi</h6>
+										<select class="custom-select" name="tujuan">
+											<option selected>Pilih Nomor Kursi</option>
+											<option n:foreach="$domisili as $d">{$d->nama_domisili}</option>
+										</select>
+									</div>	
+									<div class="col-6">
+										<br>
+										<button type="submit" class="btn btn-primary btn-block">Lanjut ke Pembayaran</button>
+									</div>
+								</div>
 							</div>
-							<br>
-							<div class="row-2">
-								<h6>Stasiun Asal</h6>
-								<select class="custom-select" name="asal">
-									<option selected>Pilih Stasiun Asal</option>
-									<option n:foreach="$domisili as $d">{$d->nama_domisili}</option>
-								</select>
-							</div>
-							<br>
-							<div class="row-2">
-								<h6>Stasiun Tujuan</h6>
-								<select class="custom-select" name="tujuan">
-									<option selected>Pilih Stasiun Tujuan</option>
-									<option n:foreach="$domisili as $d">{$d->nama_domisili}</option>
-								</select>
-							</div>
-							<br>
-							<div class="row-2">
-								<h6>Jumlah Tiket</h6>
-								<input type="text" name="jumlah" class="form-control">
-							</div>
-							<br>
-							<button type="submit" class="btn btn-primary btn-block">Cari Jadwal</button>
 						</div>
 					</div>
 				</div>
-				<div class="col-9">
-					<div class="card">
-						<div class="container-1">
+				<div class="col-5">
+					<div class="container">
+						<div class="card">
+							<div class="card-header">
+								<h6 class="card-title">Keberangkatan Kereta</h4>
+							</div>
 							<div class="card-body">
-								<div class="row justify-content-center">
-									<div class="col-2">
-										<h5>N. Kereta</h5>
-										<p>N. Kereta(C)</p>
-									</div>
-									<div class="col-2">
-										<h5>Asal</h5>
-										<p>N. Stasiun</p>
-									</div>
-									<div class="col-2">
-										<h5>Tujuan</h5>
-										<p>N. Stasiun</p>
-									</div>
-									<div class="col-2">
-										<h5>Durasi</h5>
-										<p>Durasi</p>
-									</div>
-									<div class="col-2">
-										<h5>H. Tiket</h5>
-										<button type="submit" class="btn btn-primary btn-block">Pesan Tiket</button>
-									</div>
+								<div class="row-2">
+									<h6 class="card-title">Tanggal Keberangkatan</h6>
+									<input type="date" name="tanggal" class="form-control">
+								</div>
+								<br>
+								<div class="row-2">
+									<h6>Nama Kereta</h6>
+								</div>
+								<br>
+								<div class="row-2">
+									<p>Stasiun Asal</p>
+								</div>
+								<br>
+								<div class="row-2">
+									<p>Stasiun Tujuan</p>
 								</div>
 							</div>
 						</div>	
@@ -114,8 +117,8 @@
 			</div>
 		</div>
 	</section>	
-	<script src="../public/js/jquery-3.3.1.slim.min.js"></script>
-	<script src="../public/js/popper.min.js"></script>
-	<script src="../public/js/bootstrap.min.js"></script>
+	<script src="../../public/js/jquery-3.3.1.slim.min.js"></script>
+	<script src="../../public/js/popper.min.js"></script>
+	<script src="../../public/js/bootstrap.min.js"></script>
 </body>
 </html>
