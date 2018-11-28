@@ -94,7 +94,7 @@ $klein->respond('GET', '/keluar', function ($request, $response, $service) {
   $service->redirect('/')->send();
 });
 
-$klein->respond('GET', '/jadwal/[:asal]/[:tujuan]/[:tanggal]', function ($request, $response, $service) {
+$klein->respond('GET', '/jadwal/[:asal]/[:tujuan]/[:tanggal]/[:jumlah]', function ($request, $response, $service) {
   $service->validateParam('asal')->notNull();
   $service->validateParam('tujuan')->notNull();
   $service->validateParam('tanggal')->notNull();
