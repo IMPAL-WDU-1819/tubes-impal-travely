@@ -24,10 +24,10 @@ $klein->onHttpError(function ($code, $router) {
 
 $klein->respond('GET', '/', function ($request, $response, $service) {
   $stasiun = new Stasiun();
-  $domisili = $stasiun->getDomisili();
+  $dataDomisili = $stasiun->getDomisili();
 
   global $latte;
-  $parameters['domisili'] = json_decode($domisili);
+  $parameters['domisili'] = json_decode($dataDomisili);
   $latte->render('views/index.latte', $parameters);
 });
 
@@ -37,9 +37,6 @@ $klein->respond('GET', '/masuk', function ($request, $response, $service) {
 });
 
 $klein->respond('POST', '/masuk', function ($request, $response, $service) {
-  $service->validateParam('email')->notNull();
-  $service->validateParam('password')->notNull();
-
   $email = $request->paramsPost('email');
   $password = $request->paramsPost('password');
 
@@ -64,9 +61,6 @@ $klein->respond('GET', '/daftar', function ($request, $response, $service) {
 });
 
 $klein->respond('POST', '/daftar', function ($request, $response, $service) {
-  $service->validateParam('email')->notNull();
-  $service->validateParam('password')->notNull();
-
   $email = $request->paramsPost('email');
   $password = $request->paramsPost('password');
 
@@ -95,11 +89,6 @@ $klein->respond('GET', '/keluar', function ($request, $response, $service) {
 });
 
 $klein->respond('GET', '/jadwal/[:asal]/[:tujuan]/[:tanggal]', function ($request, $response, $service) {
-  $service->validateParam('asal')->notNull();
-  $service->validateParam('tujuan')->notNull();
-  $service->validateParam('tanggal')->notNull();
-  $service->validateParam('jumlah')->notNull();
-
   $asal = $request->paramsGet('asal');
   $tujuan = $request->paramsGet('tujuan');
   $tanggal = $request->paramsGet('tanggal');
@@ -107,8 +96,11 @@ $klein->respond('GET', '/jadwal/[:asal]/[:tujuan]/[:tanggal]', function ($reques
 
   $jadwal = new Jadwal();
   $dataJadwal = $jadwal->cariJadwal($asal, $tujuan, $tanggal);
-
   $parameters['jadwal'] = json_decode($dataJadwal);
+
+  $stasiun = new Stasiun();
+  $domisili = $stasiun->getDomisili();
+  $parameters['domisili'] = json_decode($dataDomisili);
 
   global $latte;
   $latte->render('views/jadwal.latte', $parameters);
@@ -116,26 +108,20 @@ $klein->respond('GET', '/jadwal/[:asal]/[:tujuan]/[:tanggal]', function ($reques
 
 $klein->with('/transaksi', function () use ($klein) {
   $klein->respond('GET', '/form/[:id]', function ($request, $response, $service) {
-    $transaksi = new Transaksi();
+    $id = $request->paramsGet('id');
 
     global $latte;
     $latte->render('views/transaksi/form.latte');
   });
 
   $klein->respond('GET', '/bayar/[:id]', function ($request, $response, $service) {
-    $transaksi = new Transaksi();
+    $id = $request->paramsGet('id');
 
     global $latte;
     $latte->render('views/transaksi/bayar.latte');
   });
 
   $klein->respond('POST', '/bayar', function ($request, $response, $service) {
-    $service->validateParam('id')->notNull();
-    $service->validateParam('total')->notNull();
-    $service->validateParam('tipe')->notNull();
-    $service->validateParam('tanggal')->notNull();
-    $service->validateParma('akun')->notNull();
-
     $id = $request->paramsGet('id');
     $total = $request->paramsGet('total');
     $tipe = $request->paramsGet('tipe');

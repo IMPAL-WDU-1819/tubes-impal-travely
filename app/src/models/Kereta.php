@@ -7,14 +7,14 @@ class Kereta extends Base {
   public $idKereta;
   public $namaKereta;
   public $kapasitas;  
-}
 
-public function cekKapasitas($id) {
-  $data = $this->db->select('kereta', [
-    'kapasitas'
-  ], [
-    'id_kereta' => $id
-  ]);
+  public function cekKapasitas($id) {
+	  $data = $this->db->select('kereta', [
+	    'kapasitas'
+	  ], [
+	    'id_kereta' => $id
+	  ]);
 
-  return json_encode($data);
+	  return json_encode($data);
+	}
 }
