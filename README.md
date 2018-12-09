@@ -42,11 +42,6 @@
 <p><code>./vendor/bin/phpunit --bootstrap vendor/autoload.php --testdox tests</code></p>
 <br />
 
-### Konfigurasi Database
-<p>Backup database berada pada direktori <strong><code>/app/src/dumps</code></strong></p>
-<p>Parameter koneksi database berada pada file <code>db.json</code> pada direktori <strong><code>/app/src/configs</code></strong></p>
-<br />
-
 ### Todo
 - [x] Buat README
 - [x] Skenario query
