@@ -6,7 +6,8 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="../../public/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../../public/css/extra.css">
-	<title>Cetak E-Ticket</title>
+	<link rel="icon" href="../../public/favicon.ico">
+	<title>Pesan Tiket Kereta Murah dan Mudah Hanya di Travely</title>
 </head>
 <body>
 	<section id="nav">
@@ -16,9 +17,10 @@
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav mr-auto">
+					</ul>
+					<ul class="navbar-nav">
 						<li class="nav-item">
 							<a class="nav-link" href="#">Promo</a>
 						</li>
@@ -33,8 +35,13 @@
 								Akun
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								{if $akun}
+								<a n:if="$akun" class="dropdown-item" href="/akun">Akun</a>
+								<a n:if="$akun" class="dropdown-item" href="/keluar">Keluar</a>
+								{else}
 								<a class="dropdown-item" href="/masuk">Masuk</a>
 								<a class="dropdown-item" href="/daftar">Daftar</a>
+								{/if}
 							</div>
 						</li>
 					</ul>
@@ -44,37 +51,26 @@
 	</section>
 	<section id="content">
 		<div class="container">
-			<div class="row">
-                <div class="col-2">
-                </div>
+			<div class="row justify-content-center">
 				<div class="col-8">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Cetak E-Ticket</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col justify-content-center">
-                                    <p class="text-center">Pembayaran anda telah dikonfirmasi, E-Ticket anda sudah diproses dan dapat diunduh.</p>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-9">
-                                        </div>
-                                        <div class="col-3">
-                                            <button type="submit" class="btn btn-primary btn-block">Unduh</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+					<div class="card">
+						<div class="card-header">
+							<h6 class="card-title font-weight-bold">Proses E-Ticket</h6>
+						</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-12">
+									<p>Anda telah menyelesaikan proses transaksi, e-Ticket bisa dicetak setelah pembayaran tervalidasi</p>
+									<a href="/akun" class="btn btn-primary">Lihat Tiket</a>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-                <div class="col-2">
-                </div>
 			</div>
 		</div>
 	</section>	
-	<script src="../../public/js/jquery-3.3.1.slim.min.js"></script>
+	<script src="../../public/js/jquery-3.3.1.js"></script>
 	<script src="../../public/js/popper.min.js"></script>
 	<script src="../../public/js/bootstrap.min.js"></script>
 </body>

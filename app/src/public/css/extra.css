@@ -1,3 +1,65 @@
+@import "https://fonts.googleapis.com/css?family=Nunito:300,400,500,600,700";
+
+html {
+	font-size: 90%;
+}
+
+body {
+  font-family: 'Nunito', sans-serif !important;
+}
+
+a {
+	color: rgb(254, 164, 0);
+}
+
+a:hover {
+	color: rgb(254, 164, 0);
+}
+
+.nav-tabs .nav-link {
+	font-weight: bold;
+}
+
+.navbar {
+	padding: .2rem;
+  box-shadow: 0 0 5px rgba(0,0,0,.2);
+}
+
+.navbar-brand {
+	font-weight: bold;
+}
+
+li.nav-item {
+	margin-left: 25px;
+}
+
+.bg-dark {
+	background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+.card {
+	border: 1px solid #dedede;
+	border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px !important;
+}
+
+.btn-primary {
+	background-color: rgb(254, 164, 0);
+	border: 1px solid rgb(254, 164, 0);
+	font-weight: bold;
+}
+
+.btn-primary:hover {
+	background-color: #fff;
+	color: rgb(254, 164, 0);
+	border: 1px solid rgb(254, 164, 0);
+}
+
+.card-title {
+	margin-bottom: 0rem;
+}
+
 #content {
-	margin-top: 7%;
+	margin-top: 3%;
+	margin-bottom: 3%;
 }

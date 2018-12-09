@@ -6,7 +6,8 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="../../public/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../../public/css/extra.css">
-	<title>Form Pemesanan</title>
+	<link rel="icon" href="../../public/favicon.ico">
+	<title>Pesan Tiket Kereta Murah dan Mudah Hanya di Travely</title>
 </head>
 <body>
 	<section id="nav">
@@ -16,10 +17,11 @@
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav mr-auto">
-						<li class="nav-item">
+					</ul>
+					<ul class="navbar-nav">
+			      <li class="nav-item">
 							<a class="nav-link" href="#">Promo</a>
 						</li>
 						<li class="nav-item">
@@ -33,11 +35,16 @@
 								Akun
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								{if $akun}
+								<a n:if="$akun" class="dropdown-item" href="/akun">Akun</a>
+								<a n:if="$akun" class="dropdown-item" href="/keluar">Keluar</a>
+								{else}
 								<a class="dropdown-item" href="/masuk">Masuk</a>
 								<a class="dropdown-item" href="/daftar">Daftar</a>
+								{/if}
 							</div>
 						</li>
-					</ul>
+		    	</ul>
 				</div>
 			</div>
 		</nav>
@@ -46,79 +53,119 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-7">
-					<div class="card">
+					{for $i = 1; $i <= $jumlah; $i++}
+					<div class="card mb-3">
 						<div class="card-header">
-							<h4 class="card-title">Informasi Pemesan</h4>
+							<h6 class="card-title font-weight-bold">Informasi Pemesan {$i}</h6>
 						</div>
 						<div class="card-body">
 							<div class="container">
 								<div class="row">
 									<div class="col-12">
 										<h6>Nama</h6>
-										<input type="text" name="nama" class="form-control">
+										<input type="text" name="nama_{$i}" class="form-control" required="required">
 									</div>
 								</div>
 								<br>
 								<div class="row">
 									<div class="col-6">
 										<h6>Nomor Telepon</h6>
-										<input type="text" name="jumlah" class="form-control">
+										<input type="text" name="telepon_{$i}" class="form-control" required="required">
 									</div>
 									<div class="col-6">
-										<h6>Email</h6>
-										<input type="text" name="email" class="form-control">
+										<h6>No Identitas</h6>
+										<input type="text" name="identitas_{$i}" class="form-control" required="required">
 									</div>
 								</div>
 								<br>
 								<div class="row">
 									<div class="col-6">
 										<h6>Nomor Kursi</h6>
-										<select class="custom-select" name="tujuan">
-											<option selected>Pilih Nomor Kursi</option>
-											<option n:foreach="$domisili as $d">{$d->nama_domisili}</option>
+										<select class="custom-select" name="kursi_{$i}" required="required">
+											<option selected disabled="disabled">Pilih Nomor Kursi</option>
+											<option n:foreach="$kursi as $k" value="{$k->id_kursi}">{$k->no_kursi} - {$k->kereta}</option>
 										</select>
 									</div>	
-									<div class="col-6">
-										<br>
-										<button type="submit" class="btn btn-primary btn-block">Lanjut ke Pembayaran</button>
-									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+					{/for}
 				</div>
 				<div class="col-5">
 					<div class="container">
+						{foreach $jadwal as $j}
 						<div class="card">
 							<div class="card-header">
-								<h6 class="card-title">Keberangkatan Kereta</h4>
+								<h6 class="card-title font-weight-bold">Informasi Jadwal</h6>
 							</div>
 							<div class="card-body">
-								<div class="row-2">
-									<h6 class="card-title">Tanggal Keberangkatan</h6>
-									<input type="date" name="tanggal" class="form-control">
+								<div class="ro">
+									<h6>Tanggal Keberangkatan</h6>
+									<p class="font-weight-bold">{$j->tanggal_berangkat}</p>
 								</div>
 								<br>
-								<div class="row-2">
-									<h6>Nama Kereta</h6>
+								<div class="row">
+									<div class="col-12">
+										<h6>Nama Kereta</h6>
+										<p class="font-weight-bold">{$j->nama_kereta}</p>
+									</div>
 								</div>
 								<br>
-								<div class="row-2">
-									<p>Stasiun Asal</p>
-								</div>
-								<br>
-								<div class="row-2">
-									<p>Stasiun Tujuan</p>
+								<div class="row">
+									<div class="col-6">
+										<h6>Stasiun Asal</h6>
+										<p class="font-weight-bold">{$j->stasiun_asal}</p>
+									</div>
+									<div class="col-6">
+										<h6>Stasiun Tujuan</h6>
+										<p class="font-weight-bold">{$j->stasiun_tujuan}</p>
+									</div>
 								</div>
 							</div>
-						</div>	
+						</div>
+						{/foreach}	
 					</div>
 				</div>			
 			</div>
+			<div class="row">
+				<div class="col-6">
+					<br>
+					<button class="btn btn-primary" id="submit">Lanjut ke Pembayaran</button>
+				</div>
+			</div>
 		</div>
 	</section>	
-	<script src="../../public/js/jquery-3.3.1.slim.min.js"></script>
+	<script src="../../public/js/jquery-3.3.1.js"></script>
 	<script src="../../public/js/popper.min.js"></script>
 	<script src="../../public/js/bootstrap.min.js"></script>
+	<script>
+		$(() => {
+			localStorage.clear()
+		})
+
+		let penumpang = []
+
+		let addPenumpang = () => {
+			for (let i = 1; i <= {$jumlah}; i++) {
+				let nama = $('input[name=nama_' + i + ']').val()
+				let telepon = $('input[name=telepon_' + i + ']').val()
+				let identitas = $('input[name=identitas_' + i + ']').val()
+				let kursi = $('select[name=kursi_' + i + ']').val()
+				penumpang.push({ Nama: nama, Telepon: telepon, Identitas: identitas, Kursi: kursi })
+			}
+
+			if (window.localStorage) localStorage.penumpang = JSON.stringify(penumpang)
+		}
+
+		$('#submit').on('click', ((e) => {
+			e.preventDefault()
+			$.when(addPenumpang()).then(() => {
+				setTimeout(() => {
+					window.location = '/transaksi/bayar/' + parseInt({$id}) + '?jumlah=' + parseInt({$jumlah})
+				}, 500)
+			})
+		}))
+	</script>
 </body>
 </html>

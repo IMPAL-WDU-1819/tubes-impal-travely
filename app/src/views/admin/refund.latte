@@ -1,52 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../public/css/bootstrap.min.css">
-    <title>Home</title>
-  </head>
-  <body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="../public/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../public/css/extra.css">
+  <link rel="icon" href="../public/favicon.ico">
+  <title>Pesan Tiket Kereta Murah dan Mudah Hanya di Travely</title>
+</head>
+<body>
+  <section id="nav">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="/admin/refund">Travely Admin</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </ul>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" href="/admin/refund">Refund</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
+              <a class="nav-link" href="/admin/konfirmasi">Konfirmasi</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown
+                Admin
               </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">  
+                <a class="dropdown-item" href="/">Kembali</a>
               </div>
             </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
           </ul>
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
         </div>
       </div>
     </nav>
-    <script src="../public/js/jquery-3.3.1.slim.min.js"></script>
-    <script src="../public/js/popper.min.js"></script>
-    <script src="../public/js/bootstrap.min.js"></script>
-  </body>
+  </section>
+  <section id="content">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">    
+          <h6 class="font-weight-bold">Pemesanan Tiket</h6>
+          <br>
+          {foreach $transaksi as $t}
+          <div class="card mb-2">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-3">
+                  <h6>No Transaksi</h6>
+                  <p class="font-weight-bold">{$t->id_transaksi}</p>
+                </div>
+                <div class="col-3">
+                  <h6>Tanggal transaksi</h6>
+                  <p class="font-weight-bold">{$t->tanggal}</p>
+                </div>
+                <div class="col-2">
+                  <h6>Harga </h6>
+                  <p class="font-weight-bold">Rp. {$t->total}</p>
+                </div>
+                <div class="col-2">
+                  <h6>Status </h6>
+                  <p class="font-weight-bold">{$t->status}</p>
+                </div>
+                <div class="col-2 mt-3">
+                  <form method="post" action="/admin/refund">
+                    <input type="hidden" name="id" value="{$t->id_transaksi}">
+                    <input type="submit" class="btn btn-primary btn-sm btn-block" value="Refund Tiket">
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/foreach}
+        </div>
+      </div>
+    </div>
+  </section>  
+  <script src="../public/js/jquery-3.3.1.slim.min.js"></script>
+  <script src="../public/js/popper.min.js"></script>
+  <script src="../public/js/bootstrap.min.js"></script>
+</body>
 </html>

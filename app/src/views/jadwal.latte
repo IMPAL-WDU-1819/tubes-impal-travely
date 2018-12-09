@@ -6,7 +6,8 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="../public/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../public/css/extra.css">
-	<title>Jadwal</title>
+	<link rel="icon" href="../public/favicon.ico">
+	<title>Pesan Tiket Kereta Murah dan Mudah Hanya di Travely</title>
 </head>
 <body>
 	<section id="nav">
@@ -16,10 +17,11 @@
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav mr-auto">
-						<li class="nav-item">
+					</ul>
+					<ul class="navbar-nav">
+			      <li class="nav-item">
 							<a class="nav-link" href="#">Promo</a>
 						</li>
 						<li class="nav-item">
@@ -33,11 +35,16 @@
 								Akun
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								{if $akun}
+								<a n:if="$akun" class="dropdown-item" href="/akun">Akun</a>
+								<a n:if="$akun" class="dropdown-item" href="/keluar">Keluar</a>
+								{else}
 								<a class="dropdown-item" href="/masuk">Masuk</a>
 								<a class="dropdown-item" href="/daftar">Daftar</a>
+								{/if}
 							</div>
 						</li>
-					</ul>
+		    	</ul>
 				</div>
 			</div>
 		</nav>
@@ -48,73 +55,94 @@
 				<div class="col-3">
 					<div class="card">
 						<div class="card-header">
-							<h4 class="card-title">Filter Pencarian</h4>
+							<h6 class="card-title font-weight-bold">Filter Pencarian</h6>
 						</div>
 						<div class="card-body">
-							<div class="row-2">
-								<h6 class="card-title">Tanggal Keberangkatan</h6>
-								<input type="date" name="tanggal" class="form-control">
-							</div>
-							<br>
-							<div class="row-2">
-								<h6>Stasiun Asal</h6>
-								<select class="custom-select" name="asal">
-									<option selected>Pilih Stasiun Asal</option>
-									<option n:foreach="$domisili as $d">{$d->nama_domisili}</option>
-								</select>
-							</div>
-							<br>
-							<div class="row-2">
-								<h6>Stasiun Tujuan</h6>
-								<select class="custom-select" name="tujuan">
-									<option selected>Pilih Stasiun Tujuan</option>
-									<option n:foreach="$domisili as $d">{$d->nama_domisili}</option>
-								</select>
-							</div>
-							<br>
-							<div class="row-2">
-								<h6>Jumlah Tiket</h6>
-								<input type="text" name="jumlah" class="form-control">
-							</div>
-							<br>
-							<button type="submit" class="btn btn-primary btn-block">Cari Jadwal</button>
+								<form method="get" action="/jadwal">
+								<div class="row">
+									<div class="col-12">
+										<h6>Stasiun Asal</h6>
+										<select class="custom-select" name="asal">
+											<option selected disabled="disabled">Pilih Stasiun Asal</option>
+											<option n:foreach="$domisili as $d" value="{$d->id_stasiun}">{$d->nama_domisili} ({$d->id_stasiun})</option>
+										</select>
+									</div>
+								</div>
+								<br>
+								<div class="row">
+									<div class="col-12">
+										<h6>Stasiun Tujuan</h6>
+										<select class="custom-select" name="tujuan">
+											<option selected disabled="disabled">Pilih Stasiun Tujuan</option>
+											<option n:foreach="$domisili as $d" value="{$d->id_stasiun}">{$d->nama_domisili} ({$d->id_stasiun})</option>
+										</select>
+									</div>
+								</div>
+								<br>
+								<div class="row">
+									<div class="col-12">
+										<h6>Tanggal Keberangkatan</h6>
+										<input type="date" name="tanggal" class="form-control">
+									</div>
+								</div>
+								<br>
+								<div class="row">
+									<div class="col-12">
+										<h6>Jumlah Tiket</h6>
+										<select name="jumlah" class="form-control">
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+										</select>
+									</div>
+								</div>
+								<div class="row mt-4">
+									<div class="col-12">
+										<button type="submit" class="btn btn-primary btn-block">Cari Jadwal</button>
+									</div>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
 				<div class="col-9">
-					<div class="card">
-						<div class="container-1">
-							<div class="card-body">
-								<div class="row justify-content-center">
-									<div class="col-2">
-										<h5>N. Kereta</h5>
-										<p>N. Kereta(C)</p>
-									</div>
-									<div class="col-2">
-										<h5>Asal</h5>
-										<p>N. Stasiun</p>
-									</div>
-									<div class="col-2">
-										<h5>Tujuan</h5>
-										<p>N. Stasiun</p>
-									</div>
-									<div class="col-2">
-										<h5>Durasi</h5>
-										<p>Durasi</p>
-									</div>
-									<div class="col-2">
-										<h5>H. Tiket</h5>
-										<button type="submit" class="btn btn-primary btn-block">Pesan Tiket</button>
-									</div>
+					{foreach $jadwal as $j}
+					<div class="card mb-2">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-2">
+									<h6>{$j->nama_kereta}</h6>
+									<p class="font-weight-bold">{$j->id_kereta}</p>
+								</div>
+								<div class="col-2">
+									<h6>Asal</h6>
+									<p class="font-weight-bold">{$j->stasiun_asal}</p>
+								</div>
+								<div class="col-2">
+									<h6>Tujuan</h6>
+									<p class="font-weight-bold">{$j->stasiun_tujuan}</p>
+								</div>
+								<div class="col-2">
+									<h6>Waktu</h6>
+									<p class="font-weight-bold">{$j->waktu_berangkat} - {$j->waktu_sampai}</p>
+								</div>
+								<div class="col-2">
+									<h6>Harga</h6>
+									<p class="text-success font-weight-bold">Rp. {$j->harga}</p>
+								</div>
+								<div class="col-2">
+									<a href="/transaksi/form/{$j->id_jadwal}?jumlah={$jumlah}" class="btn btn-primary btn-block btn-md mt-2">Pesan</a>
 								</div>
 							</div>
-						</div>	
+						</div>
 					</div>
+					{/foreach}
 				</div>			
 			</div>
 		</div>
-	</section>	
-	<script src="../public/js/jquery-3.3.1.slim.min.js"></script>
+	</section>
+	<script src="../public/js/jquery-3.3.1.js"></script>
 	<script src="../public/js/popper.min.js"></script>
 	<script src="../public/js/bootstrap.min.js"></script>
 </body>

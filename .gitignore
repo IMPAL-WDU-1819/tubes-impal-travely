@@ -2,3 +2,4 @@
 .*.swp
 .git/
 /app/src/vendor
+/app/src/views/temp
