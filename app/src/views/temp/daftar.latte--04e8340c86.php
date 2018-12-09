@@ -18,7 +18,8 @@ class Template04e8340c86 extends Latte\Runtime\Template
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="../public/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../public/css/extra.css">
-	<title>Daftar</title>
+	<link rel="icon" href="../public/favicon.ico">
+	<title>Pesan Tiket Kereta Murah dan Mudah Hanya di Travely</title></head>
 </head>
 <body>
 	<section id="nav">
@@ -28,9 +29,10 @@ class Template04e8340c86 extends Latte\Runtime\Template
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav mr-auto">
+					</ul>
+					<ul class="navbar-nav">
 						<li class="nav-item">
 							<a class="nav-link" href="#">Promo</a>
 						</li>
@@ -60,12 +62,12 @@ class Template04e8340c86 extends Latte\Runtime\Template
 				<div class="col-md-4 offset-md-4">
 					<h5 class="text-center"><strong>Daftar Sekarang</strong></h5>
 					<br>
-					<form>
+					<form method="post" action="/daftar">
 						<div class="form-group">
-							<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email Anda">
+							<input type="email" name="email" class="form-control" placeholder="Email Anda" required="required">
 						</div>
 						<div class="form-group">
-							<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password Anda">
+							<input type="password" name="password" class="form-control" placeholder="Password Anda" required="required">
 						</div>
 						<button type="submit" class="btn btn-primary btn-block">Daftar</button>
 					</form>

@@ -18,7 +18,8 @@ class Template322fef7315 extends Latte\Runtime\Template
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="../public/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../public/css/extra.css">
-	<title>Masuk</title>
+	<link rel="icon" href="../public/favicon.ico">
+	<title>Pesan Tiket Kereta Murah dan Mudah Hanya di Travely</title></head>
 </head>
 <body>
 	<section id="nav">
@@ -30,6 +31,8 @@ class Template322fef7315 extends Latte\Runtime\Template
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav mr-auto">
+					</ul>
+					<ul class="navbar-nav">
 						<li class="nav-item">
 							<a class="nav-link" href="#">Promo</a>
 						</li>
@@ -61,10 +64,10 @@ class Template322fef7315 extends Latte\Runtime\Template
 					<br>
 					<form method="post" action="/masuk">
 						<div class="form-group">
-							<input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email Anda">
+							<input type="email" name="email" class="form-control" placeholder="Email Anda" required="required">
 						</div>
 						<div class="form-group">
-							<input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password Anda">
+							<input type="password" name="password" class="form-control" placeholder="Password Anda" required="required">
 						</div>
 						<button type="submit" class="btn btn-primary btn-block">Masuk</button>
 					</form>

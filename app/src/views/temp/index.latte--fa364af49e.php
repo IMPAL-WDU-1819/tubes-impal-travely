@@ -18,7 +18,8 @@ class Templatefa364af49e extends Latte\Runtime\Template
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="../public/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../public/css/extra.css">
-	<title>Travely</title>
+	<link rel="icon" href="../public/favicon.ico">
+	<title>Pesan Tiket Kereta Murah dan Mudah Hanya di Travely</title>
 </head>
 <body>
 	<section id="nav">
@@ -28,9 +29,10 @@ class Templatefa364af49e extends Latte\Runtime\Template
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav mr-auto">
+					</ul>
+					<ul class="navbar-nav">
 						<li class="nav-item">
 							<a class="nav-link" href="#">Promo</a>
 						</li>
@@ -45,8 +47,24 @@ class Templatefa364af49e extends Latte\Runtime\Template
 								Akun
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+<?php
+		if ($akun) {
+			if ($akun) {
+?>								<a class="dropdown-item" href="/akun">Akun</a>
+<?php
+			}
+			if ($akun) {
+?>								<a class="dropdown-item" href="/keluar">Keluar</a>
+<?php
+			}
+		}
+		else {
+?>
 								<a class="dropdown-item" href="/masuk">Masuk</a>
 								<a class="dropdown-item" href="/daftar">Daftar</a>
+<?php
+		}
+?>
 							</div>
 						</li>
 					</ul>
@@ -60,18 +78,19 @@ class Templatefa364af49e extends Latte\Runtime\Template
 				<div class="col-6">
 					<div class="card">
 						<div class="card-body">
-							<h5 class="card-title">Cari Tiket Kereta dan Promo</h5>
+							<h5 class="card-title font-weight-bold">Cari Tiket Kereta dan Promo</h5>
 							<br>
 							<form method="get" action="/jadwal">
 								<div class="row"> 
 									<div class="col">
 										<h6>Stasiun Asal</h6>
 										<select class="custom-select" name="asal">
-											<option selected>Pilih Stasiun Asal</option>
+											<option selected disabled="disabled">Pilih Stasiun Asal</option>
 <?php
 		$iterations = 0;
 		foreach ($domisili as $d) {
-			?>											<option><?php echo LR\Filters::escapeHtmlText($d->nama_domisili) /* line 59 */ ?></option>
+			?>											<option value="<?php echo LR\Filters::escapeHtmlAttr($d->id_stasiun) /* line 66 */ ?>"><?php
+			echo LR\Filters::escapeHtmlText($d->nama_domisili) /* line 66 */ ?> (<?php echo LR\Filters::escapeHtmlText($d->id_stasiun) /* line 66 */ ?>)</option>
 <?php
 			$iterations++;
 		}
@@ -81,11 +100,12 @@ class Templatefa364af49e extends Latte\Runtime\Template
 									<div class="col">
 										<h6>Stasiun Tujuan</h6>
 										<select class="custom-select" name="tujuan">
-											<option selected>Pilih Stasiun Tujuan</option>
+											<option selected disabled="disabled">Pilih Stasiun Tujuan</option>
 <?php
 		$iterations = 0;
 		foreach ($domisili as $d) {
-			?>											<option><?php echo LR\Filters::escapeHtmlText($d->nama_domisili) /* line 66 */ ?></option>
+			?>											<option value="<?php echo LR\Filters::escapeHtmlAttr($d->id_stasiun) /* line 73 */ ?>"><?php
+			echo LR\Filters::escapeHtmlText($d->nama_domisili) /* line 73 */ ?> (<?php echo LR\Filters::escapeHtmlText($d->id_stasiun) /* line 73 */ ?>)</option>
 <?php
 			$iterations++;
 		}
@@ -101,7 +121,12 @@ class Templatefa364af49e extends Latte\Runtime\Template
 									</div>
 									<div class="col">
 										<h6>Jumlah Tiket</h6>
-										<input type="text" name="jumlah" class="form-control">
+										<select name="jumlah" class="form-control">
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+										</select>
 									</div> 
 								</div>
 								<br>
@@ -112,12 +137,12 @@ class Templatefa364af49e extends Latte\Runtime\Template
 					</div>
 				</div>
 				<div class="col-6">
-					<img class="img-fluid" src="../public/img/home.jpg" alt="">
+					<img class="img-fluid" src="../public/img/home2.png" alt="">
 				</div>
 			</div>
 		</div>
 	</section>
-	<script src="../public/js/jquery-3.3.1.slim.min.js"></script>
+	<script src="../public/js/jquery-3.3.1.js"></script>
 	<script src="../public/js/popper.min.js"></script>
 	<script src="../public/js/bootstrap.min.js"></script>
 </body>
@@ -130,7 +155,7 @@ class Templatefa364af49e extends Latte\Runtime\Template
 	function prepare()
 	{
 		extract($this->params);
-		if (isset($this->params['d'])) trigger_error('Variable $d overwritten in foreach on line 59, 66');
+		if (isset($this->params['d'])) trigger_error('Variable $d overwritten in foreach on line 66, 73');
 		
 	}
 
