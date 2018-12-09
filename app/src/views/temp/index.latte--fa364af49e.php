@@ -137,7 +137,7 @@ class Templatefa364af49e extends Latte\Runtime\Template
 					</div>
 				</div>
 				<div class="col-6">
-					<img class="img-fluid" src="../public/img/home2.png" alt="">
+					<img class="img-fluid" src="../public/img/home.jpg" alt="">
 				</div>
 			</div>
 		</div>
