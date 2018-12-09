@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.21, for osx10.12 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.23, for macos10.13 (x86_64)
 --
--- Host: localhost    Database: travely
+-- Host: 127.0.0.1    Database: travely
 -- ------------------------------------------------------
--- Server version	5.7.21
+-- Server version 8.0.12
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,14 +23,10 @@ DROP TABLE IF EXISTS `akun`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `akun` (
-  `id_akun` varchar(16) NOT NULL,
   `email` varchar(50) NOT NULL,
   `nama` varchar(100) NOT NULL,
   `password` varchar(25) NOT NULL,
-  `tanggal_lahir` varchar(10) NOT NULL,
-  `nomor_telepon` varchar(15) NOT NULL,
-  `alamat` text NOT NULL,
-  PRIMARY KEY (`id_akun`)
+  PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -40,6 +36,7 @@ CREATE TABLE `akun` (
 
 LOCK TABLES `akun` WRITE;
 /*!40000 ALTER TABLE `akun` DISABLE KEYS */;
+INSERT INTO `akun` VALUES ('fajar@email.com','','fajar123'),('randy@email.com','','randy123'),('sample@sample.com','','sample'),('test@test.com','','test123');
 /*!40000 ALTER TABLE `akun` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -63,6 +60,7 @@ CREATE TABLE `domisili` (
 
 LOCK TABLES `domisili` WRITE;
 /*!40000 ALTER TABLE `domisili` DISABLE KEYS */;
+INSERT INTO `domisili` VALUES ('BDO','Bandung'),('CRN','Cirebon'),('JKT','Jakarta'),('MLG','Malang');
 /*!40000 ALTER TABLE `domisili` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,9 +84,9 @@ CREATE TABLE `jadwal` (
   KEY `stasiun_asal` (`stasiun_asal`),
   KEY `stasiun_tujuan` (`stasiun_tujuan`),
   KEY `kereta` (`kereta`),
-  CONSTRAINT `jadwal_ibfk_1` FOREIGN KEY (`stasiun_asal`) REFERENCES `stasiun` (`id_stasiun`),
-  CONSTRAINT `jadwal_ibfk_2` FOREIGN KEY (`stasiun_tujuan`) REFERENCES `stasiun` (`id_stasiun`),
-  CONSTRAINT `jadwal_ibfk_3` FOREIGN KEY (`kereta`) REFERENCES `kereta` (`id_kereta`)
+  CONSTRAINT `jadwal_ibfk_3` FOREIGN KEY (`kereta`) REFERENCES `kereta` (`id_kereta`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `jadwal_ibfk_4` FOREIGN KEY (`stasiun_asal`) REFERENCES `stasiun` (`id_stasiun`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `jadwal_ibfk_5` FOREIGN KEY (`stasiun_tujuan`) REFERENCES `stasiun` (`id_stasiun`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -98,6 +96,7 @@ CREATE TABLE `jadwal` (
 
 LOCK TABLES `jadwal` WRITE;
 /*!40000 ALTER TABLE `jadwal` DISABLE KEYS */;
+INSERT INTO `jadwal` VALUES ('178012021','2018-11-08','2018-11-08','KRC','SEN','14:00','18:00','AGL240'),('178021022','2018-11-08','2018-11-08','SEN','KRC','20:00','24:00','AGL240'),('178021023','2018-11-29','2018-11-29','ML','CR','15:00','20:00','AGL240'),('178021024','2018-11-29','2018-11-29','ML','CR','11:00','16:00','AGL190');
 /*!40000 ALTER TABLE `jadwal` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -109,9 +108,10 @@ DROP TABLE IF EXISTS `kelas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `kelas` (
-  `tipe` varchar(5) NOT NULL,
-  `harga` int(10) NOT NULL,
-  PRIMARY KEY (`tipe`)
+  `id_kelas` varchar(16) NOT NULL,
+  `nama_kelas` varchar(16) DEFAULT NULL,
+  `harga` varchar(16) NOT NULL,
+  PRIMARY KEY (`id_kelas`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -121,6 +121,7 @@ CREATE TABLE `kelas` (
 
 LOCK TABLES `kelas` WRITE;
 /*!40000 ALTER TABLE `kelas` DISABLE KEYS */;
+INSERT INTO `kelas` VALUES ('EKONOMI','EKONOMI','100000'),('VIP','VIP','200000');
 /*!40000 ALTER TABLE `kelas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -135,7 +136,10 @@ CREATE TABLE `kereta` (
   `id_kereta` varchar(16) NOT NULL,
   `nama_kereta` varchar(20) NOT NULL,
   `kapasitas` int(3) NOT NULL,
-  PRIMARY KEY (`id_kereta`)
+  `kelas` varchar(16) NOT NULL,
+  PRIMARY KEY (`id_kereta`),
+  KEY `kelas` (`kelas`),
+  CONSTRAINT `kereta_ibfk_1` FOREIGN KEY (`kelas`) REFERENCES `kelas` (`id_kelas`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -145,6 +149,7 @@ CREATE TABLE `kereta` (
 
 LOCK TABLES `kereta` WRITE;
 /*!40000 ALTER TABLE `kereta` DISABLE KEYS */;
+INSERT INTO `kereta` VALUES ('AGL190','Argo Lawu',200,'EKONOMI'),('AGL240','Argo Lawu',200,'EKONOMI'),('AGP123','Argo Parahyangan',200,'EKONOMI');
 /*!40000 ALTER TABLE `kereta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -159,12 +164,9 @@ CREATE TABLE `kursi` (
   `id_kursi` varchar(16) NOT NULL,
   `no_kursi` varchar(5) NOT NULL,
   `kereta` varchar(16) NOT NULL,
-  `kelas` varchar(3) NOT NULL,
   PRIMARY KEY (`id_kursi`),
-  KEY `kelas` (`kelas`),
   KEY `kereta` (`kereta`),
-  CONSTRAINT `kursi_ibfk_1` FOREIGN KEY (`kelas`) REFERENCES `kelas` (`tipe`),
-  CONSTRAINT `kursi_ibfk_2` FOREIGN KEY (`kereta`) REFERENCES `kereta` (`id_kereta`)
+  CONSTRAINT `kursi_ibfk_1` FOREIGN KEY (`kereta`) REFERENCES `kereta` (`id_kereta`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -174,6 +176,7 @@ CREATE TABLE `kursi` (
 
 LOCK TABLES `kursi` WRITE;
 /*!40000 ALTER TABLE `kursi` DISABLE KEYS */;
+INSERT INTO `kursi` VALUES ('123413','A3','AGL240'),('123475','B4','AGL240'),('123864','B3','AGL240'),('123971','B2','AGL240'),('127831','A4','AGL240'),('128341','B1','AGL240'),('129387','B1','AGP123'),('182750','B4','AGP123'),('182759','A1','AGL190'),('376231','A2','AGP123'),('394857','A1','AGP123'),('561274','B4','AGL190'),('617248','A4','AGP123'),('723523','B3','AGL190'),('752361','B1','AGL190'),('823475','B3','AGP123'),('871524','B2','AGL190'),('871526','A4','AGL190'),('875125','A2','AGL190'),('875126','A3','AGL190'),('876123','A1','AGL240'),('974129','A2','AGL240'),('981257','B2','AGP123'),('981275','A3','AGP123');
 /*!40000 ALTER TABLE `kursi` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -190,7 +193,7 @@ CREATE TABLE `stasiun` (
   `domisili` varchar(3) NOT NULL,
   PRIMARY KEY (`id_stasiun`),
   KEY `domisili` (`domisili`),
-  CONSTRAINT `stasiun_ibfk_1` FOREIGN KEY (`domisili`) REFERENCES `domisili` (`id_domisili`)
+  CONSTRAINT `stasiun_ibfk_1` FOREIGN KEY (`domisili`) REFERENCES `domisili` (`id_domisili`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -200,6 +203,7 @@ CREATE TABLE `stasiun` (
 
 LOCK TABLES `stasiun` WRITE;
 /*!40000 ALTER TABLE `stasiun` DISABLE KEYS */;
+INSERT INTO `stasiun` VALUES ('BD','Bandung','BDO'),('CR','Cirebon','CRN'),('GMR','Gambir','JKT'),('KRC','Kiara Condong','BDO'),('ML','Malang','MLG'),('SEN','Pasar Senen','JKT');
 /*!40000 ALTER TABLE `stasiun` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -212,19 +216,18 @@ DROP TABLE IF EXISTS `tiket`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tiket` (
   `id_tiket` varchar(16) NOT NULL,
-  `status` varchar(10) NOT NULL,
   `kursi` varchar(16) NOT NULL,
+  `transaksi` varchar(16) NOT NULL,
+  `identitas` varchar(16) NOT NULL,
+  `nama` varchar(100) NOT NULL,
   `jadwal` varchar(16) NOT NULL,
-  `transkasi` varchar(16) NOT NULL,
-  `id_penumpang` varchar(16) NOT NULL,
-  `nama_penumpang` varchar(100) NOT NULL,
   PRIMARY KEY (`id_tiket`),
   KEY `kursi` (`kursi`),
+  KEY `transkasi` (`transaksi`),
   KEY `jadwal` (`jadwal`),
-  KEY `transkasi` (`transkasi`),
-  CONSTRAINT `tiket_ibfk_1` FOREIGN KEY (`kursi`) REFERENCES `kursi` (`id_kursi`),
-  CONSTRAINT `tiket_ibfk_2` FOREIGN KEY (`jadwal`) REFERENCES `jadwal` (`id_jadwal`),
-  CONSTRAINT `tiket_ibfk_3` FOREIGN KEY (`transkasi`) REFERENCES `transaksi` (`id_transaksi`)
+  CONSTRAINT `tiket_ibfk_4` FOREIGN KEY (`kursi`) REFERENCES `kursi` (`id_kursi`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `tiket_ibfk_6` FOREIGN KEY (`transaksi`) REFERENCES `transaksi` (`id_transaksi`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `tiket_ibfk_7` FOREIGN KEY (`jadwal`) REFERENCES `jadwal` (`id_jadwal`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -234,6 +237,7 @@ CREATE TABLE `tiket` (
 
 LOCK TABLES `tiket` WRITE;
 /*!40000 ALTER TABLE `tiket` DISABLE KEYS */;
+INSERT INTO `tiket` VALUES ('1544360012203','128341','1544360012195','9812731642','Nico','178021023'),('1544360012204','123971','1544360012195','9812731641','RIan','178021023'),('1544361592498','974129','1544361592495','128319246','Fajar','178021023');
 /*!40000 ALTER TABLE `tiket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -246,11 +250,15 @@ DROP TABLE IF EXISTS `transaksi`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `transaksi` (
   `id_transaksi` varchar(16) NOT NULL,
-  `tanggal_transaksi` varchar(10) NOT NULL,
+  `tanggal` varchar(10) NOT NULL,
   `total` varchar(15) NOT NULL,
-  `akun` varchar(16) NOT NULL,
-  `status` varchar(10) NOT NULL,
-  PRIMARY KEY (`id_transaksi`)
+  `akun` varchar(50) NOT NULL,
+  `status` varchar(20) NOT NULL,
+  `tipe` varchar(10) NOT NULL,
+  `bank` varchar(10) NOT NULL,
+  PRIMARY KEY (`id_transaksi`),
+  KEY `akun` (`akun`),
+  CONSTRAINT `transaksi_ibfk_1` FOREIGN KEY (`akun`) REFERENCES `akun` (`email`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -260,8 +268,13 @@ CREATE TABLE `transaksi` (
 
 LOCK TABLES `transaksi` WRITE;
 /*!40000 ALTER TABLE `transaksi` DISABLE KEYS */;
+INSERT INTO `transaksi` VALUES ('1544360012195','2018-12-09','100000','test@test.com','Lunas','Transfer','BCA'),('1544361592495','2018-12-09','100000','fajar@email.com','Lunas','CC','-');
 /*!40000 ALTER TABLE `transaksi` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'travely'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -272,4 +285,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-05 15:52:30
+-- Dump completed on 2018-12-09 22:09:49

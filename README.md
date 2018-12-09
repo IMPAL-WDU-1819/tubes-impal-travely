@@ -9,7 +9,7 @@
 <br />
 
 <p><strong><code>/db</code></strong></p>
-<p>DML dan DDL database utama.</p>
+<p>Skenario query database.</p>
 <br />
 
 <p><strong><code>/docs</code></strong></p>
@@ -34,7 +34,7 @@
 <br />
 
 <p>3. Jalankan di server lokal</p>
-<p><code>php -S localhost:8000</code></p>
+<p><code>php -S 127.0.0.1:8000</code></p>
 <br />
 
 ### Unit Test
@@ -42,10 +42,15 @@
 <p><code>./vendor/bin/phpunit --bootstrap vendor/autoload.php --testdox tests</code></p>
 <br />
 
+### Konfigurasi Database
+<p>Backup database berada pada direktori <strong><code>/app/src/dumps</code></strong></p>
+<p>Parameter koneksi database berada pada file <code>db.json</code> pada direktori <strong><code>/app/src/configs</code></strong></p>
+<br />
+
 ### Todo
 - [x] Buat README
-- [ ] DDL dan DML
+- [x] Skenario query
 - [x] Struktur dasar aplikasi
-- [ ] Desain antarmuka
-- [ ] Implementasi diagram kelas
+- [x] Desain antarmuka
+- [x] Implementasi diagram kelas
 - [x] Buat unit test
