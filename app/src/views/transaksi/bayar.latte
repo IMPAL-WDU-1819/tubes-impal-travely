@@ -196,6 +196,9 @@
 		let rand = new Date()
 		let tid = rand.getTime()
 
+		let ssid = parseInt({$id})
+		let ssjumlah = parseInt({$jumlah})
+
 		let details = () => {
 			for (let i in penumpang) {
 				let id = rand.getTime() + Math.floor(Math.random() * 10)
@@ -217,18 +220,18 @@
 
 		let upload = () => {
 			let _submit = document.getElementById('bukti');
-		  let formData = new FormData();
-		  formData.append('bukti', _submit.files[0]);
-		  formData.append('id', tid)
+			let formData = new FormData();
+			formData.append('bukti', _submit.files[0]);
+			formData.append('id', tid)
 			$.ajax({
-      	url: '/transaksi/upload',
+			url: '/transaksi/upload',
 				type: 'POST',
 				data: formData,
 				dataType: 'json',
-        cache: false,
+				cache: false,
 				contentType: false,
-  	    processData: false
-  	  })
+				processData: false
+			})
 		}
 
 		let transfer = () => {
@@ -263,20 +266,30 @@
 
 		$('#tform').on('submit', ((e) => {
 			e.preventDefault()
-			$.when(transfer(), details(), upload()).then(() => {
-				setTimeout(() => {
-					window.location = '/transaksi/tiket'
-				}, 500)
-			})
+			if ({$akun} == '') {
+				alert('Anda harus login terlebih dahulu')
+				window.location = '/transaksi/bayar/' + ssid + '?jumlah=' + ssjumlah
+			} else {
+				$.when(transfer(), details(), upload()).then(() => {
+					setTimeout(() => {
+						window.location = '/transaksi/tiket'
+					}, 500)
+				})
+			}
 		}))
 
 		$('#ccform').on('submit', ((e) => {
 			e.preventDefault()
-			$.when(cc(), details()).then(() => {
-				setTimeout(() => {
-					window.location = '/transaksi/tiket'
-				}, 500)
-			})
+			if ({$akun} == '') {
+				alert('Anda harus login terlebih dahulu')
+				window.location = '/transaksi/bayar/' + ssid + '?jumlah=' + ssjumlah
+			} else {
+				$.when(cc(), details()).then(() => {
+					setTimeout(() => {
+						window.location = '/transaksi/tiket'
+					}, 500)
+				})
+			}
 		}))
 	</script>
 </body>

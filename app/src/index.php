@@ -25,15 +25,14 @@ $klein->onHttpError(function ($code, $router) {
 });
 
 $klein->respond('GET', '/', function ($request, $response, $service) {
+  $parameters['akun'] = '';
+
   session_start();
+
   if (isset($_SESSION['email'])) {
     $parameters['akun'] = $_SESSION['email'];
   }
-
-  if (isset($_SESSION['emailadmin'])) {
-    $parameters['admin'] = $_SESSION['emailadmin'];
-  }
-
+  
   $stasiun = new Stasiun();
   $dataDomisili = $stasiun->getDomisili();
 
@@ -60,7 +59,7 @@ $klein->respond('POST', '/masuk', function ($request, $response, $service) {
   $akun = new Akun();
   $dataAkun = $akun->getAkun($email, $password);
 
-  if (!empty($dataAkun)) {
+  if (!empty(json_decode($dataAkun))) {
     session_start();
     $_SESSION['email'] = $email;
 
@@ -69,45 +68,6 @@ $klein->respond('POST', '/masuk', function ($request, $response, $service) {
 
   $response->redirect('/masuk')->send();
 });
-
-// MASUK ADMIN
-$klein->respond('GET', '/admin/masuk', function ($request, $response, $service) {
-  session_start();
-  if (isset($_SESSION['emailadmin'])) {
-    $response->redirect('/admin/konfirmasi')->send();
-  }
-
-  global $latte;
-  $latte->render('views/admin/masuk.latte');
-});
-
-$klein->respond('POST', '/masukadmin', function ($request, $response, $service) {
-  $email = $request->param('emailadmin');
-  $password = $request->param('passwordadmin');
-
-  $admin = new Akun();
-  $dataAdmin = $admin->getAkunAdmin($email, $password);
-
-  if (!empty($dataAdmin)) {
-    session_start();
-    $_SESSION['emailadmin'] = $email;
-
-    $response->redirect('/admin/konfirmasi')->send();
-  }
-
-  $response->redirect('/admin/masuk')->send();
-});
-
-$klein->respond('GET', '/keluaradmin', function ($request, $response, $service) {
-  session_start();
-  if (isset($_SESSION['emailadmin'])) {
-    $response->redirect('/')->send();
-  }
-  session_destroy();
-  $service->redirect('/')->send();
-});
-
-//END MASUK ADMIN
 
 $klein->respond('GET', '/daftar', function ($request, $response, $service) {
   session_start();
@@ -168,6 +128,8 @@ $klein->respond('GET', '/keluar', function ($request, $response, $service) {
 });
 
 $klein->respond('GET', '/jadwal', function ($request, $response, $service) {
+  $parameters['akun'] = '';
+
   session_start();
   if (isset($_SESSION['email'])) {
     $parameters['akun'] = $_SESSION['email'];
@@ -194,6 +156,8 @@ $klein->respond('GET', '/jadwal', function ($request, $response, $service) {
 
 $klein->with('/transaksi', function () use ($klein) {
   $klein->respond('GET', '/form/[:id]', function ($request, $response, $service) {
+    $parameters['akun'] = '';
+
     session_start();
     if (isset($_SESSION['email'])) {
       $parameters['akun'] = $_SESSION['email'];
@@ -218,6 +182,8 @@ $klein->with('/transaksi', function () use ($klein) {
   });
 
   $klein->respond('GET', '/bayar/[:id]', function ($request, $response, $service) {
+    $parameters['akun'] = '';
+    
     session_start();
     if (isset($_SESSION['email'])) {
       $parameters['akun'] = $_SESSION['email'];
@@ -276,6 +242,8 @@ $klein->with('/transaksi', function () use ($klein) {
   });
 
   $klein->respond('GET', '/tiket', function ($request, $response, $service) {
+    $parameters['akun'] = '';
+    
     session_start();
     if (isset($_SESSION['email'])) {
       $parameters['akun'] = $_SESSION['email'];
@@ -296,7 +264,41 @@ $klein->with('/transaksi', function () use ($klein) {
 });
 
 $klein->with('/admin', function () use ($klein) {
+  $klein->respond('GET', '/masuk', function ($request, $response, $service) {
+    session_start();
+    if (isset($_SESSION['admin'])) {
+      $response->redirect('/admin/konfirmasi')->send();
+    }
+
+    global $latte;
+    $latte->render('views/admin/masuk.latte');
+  });
+
+  $klein->respond('POST', '/masuk', function ($request, $response, $service) {
+    $username = $request->param('username');
+    $password = $request->param('password');
+
+    if ($username == 'admin' && $password =='admin') {
+      session_start();
+      $_SESSION['admin'] = 'admin';
+      $response->redirect('/admin/konfirmasi')->send();
+    }
+
+    $response->redirect('/admin/masuk')->send();
+  });
+
+  $klein->respond('GET', '/keluar', function ($request, $response, $service) {
+    session_start();
+    session_destroy();
+    $response->redirect('/admin/masuk')->send();
+  });
+
   $klein->respond('GET', '/refund', function ($request, $response, $service) {
+    session_start();
+    if (!isset($_SESSION['admin'])) {
+      $response->redirect('/admin/masuk')->send();
+    }
+
     $transaksi = new Transaksi();
     $dataTransaksi = $transaksi->getTransaksiRefund();
 
@@ -316,6 +318,11 @@ $klein->with('/admin', function () use ($klein) {
   });
 
   $klein->respond('GET', '/konfirmasi', function ($request, $response, $service) {
+    session_start();
+    if (!isset($_SESSION['admin'])) {
+      $response->redirect('/admin/masuk')->send();
+    }
+
     $transaksi = new Transaksi();
     $dataTransaksi = $transaksi->getTransaksiPending();
 

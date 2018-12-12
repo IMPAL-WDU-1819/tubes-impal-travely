@@ -61,7 +61,6 @@ class Template042264a343 extends Latte\Runtime\Template
 		else {
 ?>
 								<a class="dropdown-item" href="/masuk">Masuk</a>
-								<a class="dropdown-item" href="/admin/masuk">Masuk Admin</a>
 								<a class="dropdown-item" href="/daftar">Daftar</a>
 <?php
 		}
@@ -90,8 +89,8 @@ class Template042264a343 extends Latte\Runtime\Template
 <?php
 		$iterations = 0;
 		foreach ($domisili as $d) {
-			?>											<option value="<?php echo LR\Filters::escapeHtmlAttr($d->id_stasiun) /* line 67 */ ?>"><?php
-			echo LR\Filters::escapeHtmlText($d->nama_domisili) /* line 67 */ ?> (<?php echo LR\Filters::escapeHtmlText($d->id_stasiun) /* line 67 */ ?>)</option>
+			?>											<option value="<?php echo LR\Filters::escapeHtmlAttr($d->id_stasiun) /* line 66 */ ?>"><?php
+			echo LR\Filters::escapeHtmlText($d->nama_domisili) /* line 66 */ ?> (<?php echo LR\Filters::escapeHtmlText($d->id_stasiun) /* line 66 */ ?>)</option>
 <?php
 			$iterations++;
 		}
@@ -105,8 +104,8 @@ class Template042264a343 extends Latte\Runtime\Template
 <?php
 		$iterations = 0;
 		foreach ($domisili as $d) {
-			?>											<option value="<?php echo LR\Filters::escapeHtmlAttr($d->id_stasiun) /* line 74 */ ?>"><?php
-			echo LR\Filters::escapeHtmlText($d->nama_domisili) /* line 74 */ ?> (<?php echo LR\Filters::escapeHtmlText($d->id_stasiun) /* line 74 */ ?>)</option>
+			?>											<option value="<?php echo LR\Filters::escapeHtmlAttr($d->id_stasiun) /* line 73 */ ?>"><?php
+			echo LR\Filters::escapeHtmlText($d->nama_domisili) /* line 73 */ ?> (<?php echo LR\Filters::escapeHtmlText($d->id_stasiun) /* line 73 */ ?>)</option>
 <?php
 			$iterations++;
 		}
@@ -156,7 +155,7 @@ class Template042264a343 extends Latte\Runtime\Template
 	function prepare()
 	{
 		extract($this->params);
-		if (isset($this->params['d'])) trigger_error('Variable $d overwritten in foreach on line 67, 74');
+		if (isset($this->params['d'])) trigger_error('Variable $d overwritten in foreach on line 66, 73');
 		
 	}
 
