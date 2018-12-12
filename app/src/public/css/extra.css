@@ -43,10 +43,27 @@ li.nav-item {
   box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px !important;
 }
 
+.btn-info {
+	font-weight: bold;
+}
+
 .btn-primary {
 	background-color: rgb(254, 164, 0);
 	border: 1px solid rgb(254, 164, 0);
 	font-weight: bold;
+}
+
+.btn-primary:disabled {
+	background-color: rgb(254, 164, 0);
+	border: 1px solid rgb(254, 164, 0);
+	font-weight: bold;
+}
+
+.btn-primary:disabled:hover {
+	background-color: rgb(254, 164, 0);
+	border: 1px solid rgb(254, 164, 0);
+	font-weight: bold;
+	color: white;
 }
 
 .btn-primary:hover {
