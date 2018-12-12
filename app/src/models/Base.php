@@ -10,7 +10,7 @@ class Base {
     $this->db = new Medoo([
       'database_type' => 'mysql',
       'database_name' => 'travely',
-      'server' => 'localhost:3306',
+      'server' => 'localhost',
       'username' => 'root',
       'password' => ''
     ]);
