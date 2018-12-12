@@ -46,7 +46,7 @@ class Transaksi extends Base {
 	public function getTransaksi($id) {
 		$data = $this->db->select('transaksi',
 			['transaksi.id_transaksi', 'transaksi.tanggal', 
-			'transaksi.total', 'transaksi.total'],
+			'transaksi.status', 'transaksi.total'],
 			['transaksi.id_transaksi' => $id]
 		);
 

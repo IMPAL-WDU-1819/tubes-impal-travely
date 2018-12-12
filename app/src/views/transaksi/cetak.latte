@@ -1,0 +1,15 @@
+{foreach $tiket as $t}
+<small>==========================================</small>
+	<h2>ETiket Travely</h2>
+	{foreach $jadwal as $j}
+		<p>Tanggal Berangkat: {$j->tanggal_berangkat}</p>
+		<p>Asal: {$j->stasiun_asal}</p>
+		<p>Tujuan: {$j->stasiun_tujuan}</p>
+		<p>Kereta: {$j->nama_kereta}</p>
+	{/foreach}
+	<p>Kursi: <strong>{$t->no_kursi}</strong></p>
+	<p>Nama Penumpang: {$t->nama}</p>
+<small>==========================================</small>
+<br>
+{/foreach}
+<script>window.print()</script>

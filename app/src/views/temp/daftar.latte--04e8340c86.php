@@ -70,6 +70,13 @@ class Template04e8340c86 extends Latte\Runtime\Template
 							<input type="password" name="password" class="form-control" placeholder="Password Anda" required="required">
 						</div>
 						<button type="submit" class="btn btn-primary btn-block">Daftar</button>
+						<br>
+<?php
+		if ($error) {
+			?>						<small><?php echo LR\Filters::escapeHtmlText($error) /* line 63 */ ?></small>
+<?php
+		}
+?>
 					</form>
 				</div>
 			</div>

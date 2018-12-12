@@ -5,7 +5,12 @@ require_once 'Base.php';
 
 class Tiket extends Base {
 	public function getETiket($id) {
-		$data = $this->db->select('tiket');
+		$data = $this->db->select('tiket', 
+			['[><]kursi' => ['kursi' => 'id_kursi']],
+			['tiket.id_tiket', 'tiket.kursi', 'tiket.identitas', 
+			 'tiket.nama', 'tiket.jadwal', 'kursi.no_kursi'],
+			['tiket.transaksi' => $id]
+		);
 		return json_encode($data);
 	}
 

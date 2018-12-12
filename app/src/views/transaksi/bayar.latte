@@ -194,7 +194,7 @@
 		})
 		
 		let rand = new Date()
-		let tid = rand.getTime()
+		const tid = rand.getTime()
 
 		let ssid = parseInt({$id})
 		let ssjumlah = parseInt({$jumlah})
@@ -241,7 +241,7 @@
 				data: {
 					transaksi: tid,
 					akun: {$akun},
-					total: $('#harga1').text(),
+					total: parseInt($('#harga1').text()) * ssjumlah,
 					tipe: 'Transfer',
 					bank: $('#bank option:selected').text()
 				},
@@ -256,7 +256,7 @@
 				data: {
 					transaksi: tid,
 					akun: {$akun},
-					total: $('#harga2').text(),
+					total: parseInt($('#harga2').text()) * ssjumlah,
 					tipe: 'CC',
 					bank: '-'
 				},

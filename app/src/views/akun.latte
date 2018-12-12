@@ -69,16 +69,16 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-9">
+				<div class="col-12 mt-3">
 					{foreach $transaksi as $t}
 					<div class="card mb-2">
 						<div class="card-body">
 							<div class="row">
-								<div class="col-3">
+								<div class="col-2">
 									<h6>No Transaksi</h6>
 									<p class="font-weight-bold">{$t->id_transaksi}</p>
 								</div>
-								<div class="col-3">
+								<div class="col-2">
 									<h6>Tanggal transaksi</h6>
 									<p class="font-weight-bold">{$t->tanggal}</p>
 								</div>
@@ -93,8 +93,19 @@
 								<div class="col-2 mt-3">
 									<form method="post" action="/transaksi/refund">
 										<input type="hidden" name="id" value="{$t->id_transaksi}">
-										<input type="submit" class="btn btn-primary btn-sm btn-block" value="Refund">
+										{if $t->status == "Proses Refund" || $t->status == "Pending"}
+										<input type="submit" class="btn btn-primary btn-sm btn-block" value="Refund Transaksi" disabled>
+										{else}
+										<input type="submit" class="btn btn-primary btn-sm btn-block" value="Refund Transaksi">
+										{/if}
 									</form>
+								</div>
+								<div class="col-2 mt-3">
+									{if $t->status == "Lunas"}
+									<a href="transaksi/cetak/{$t->id_transaksi}" class="btn btn-info btn-sm btn-block">Cetak E-Tiket</a>
+									{else}
+									<a href="transaksi/cetak/{$t->id_transaksi}" class="btn btn-info btn-sm btn-block disabled">Cetak E-Tiket</a>
+									{/if}
 								</div>
 							</div>
 						</div>

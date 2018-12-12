@@ -86,15 +86,17 @@ $klein->respond('POST', '/daftar', function ($request, $response, $service) {
   $akun = new Akun();
   $cekEmail = $akun->cekAkun($email);
 
-  if (count((array)$cekEmail)) {
+  if (empty(json_decode($cekEmail))) {
     $akun->buatAkun($email, $password);
     session_start();
     $_SESSION['email'] = $email;
 
     $response->redirect('/')->send();
+  } else {
+    $parameters['error'] = 'Email sudah digunakan';
+    global $latte;
+    $latte->render('views/daftar.latte', $parameters);
   }
-
-  $response->redirect('/daftar')->send();
 });
 
 $klein->respond('GET', '/akun', function ($request, $response, $service) {
@@ -251,6 +253,32 @@ $klein->with('/transaksi', function () use ($klein) {
 
     global $latte;
     $latte->render('views/transaksi/tiket.latte', $parameters);
+  });
+
+  $klein->respond('GET', '/cetak/[:id]', function ($request, $response, $service) {
+    $id = $request->param('id');
+
+    $transaksi = new Transaksi();
+    $dataTransaksi = $transaksi->getTransaksi($id);
+
+    $parameters['transaksi'] = json_decode($dataTransaksi);
+
+    if ($parameters['transaksi'][0]->status == "Lunas") {
+      $tiket = new Tiket();
+      $dataTiket = $tiket->getETiket($id);
+
+      $parameters['tiket'] = json_decode($dataTiket);
+
+      $jadwal = new Jadwal();
+      $dataJadwal = $jadwal->getJadwal($parameters['tiket'][0]->jadwal);
+
+      $parameters['jadwal'] = json_decode($dataJadwal);
+
+      global $latte;
+      $latte->render('views/transaksi/cetak.latte', $parameters);
+    } else {
+      $response->redirect('/akun')->send(); 
+    }
   });
 
   $klein->respond('POST', '/refund', function ($request, $response, $service) {
