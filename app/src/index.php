@@ -30,6 +30,10 @@ $klein->respond('GET', '/', function ($request, $response, $service) {
     $parameters['akun'] = $_SESSION['email'];
   }
 
+  if (isset($_SESSION['emailadmin'])) {
+    $parameters['admin'] = $_SESSION['emailadmin'];
+  }
+
   $stasiun = new Stasiun();
   $dataDomisili = $stasiun->getDomisili();
 
@@ -42,7 +46,7 @@ $klein->respond('GET', '/', function ($request, $response, $service) {
 $klein->respond('GET', '/masuk', function ($request, $response, $service) {
   session_start();
   if (isset($_SESSION['email'])) {
-    $response->redirect('/')->send();
+    $response->redirect('/akun')->send();
   }
 
   global $latte;
@@ -60,11 +64,50 @@ $klein->respond('POST', '/masuk', function ($request, $response, $service) {
     session_start();
     $_SESSION['email'] = $email;
 
-    $response->redirect('/')->send();
+    $response->redirect('/akun')->send();
   }
 
-  $response->redirect('/login')->send();
+  $response->redirect('/masuk')->send();
 });
+
+// MASUK ADMIN
+$klein->respond('GET', '/admin/masuk', function ($request, $response, $service) {
+  session_start();
+  if (isset($_SESSION['emailadmin'])) {
+    $response->redirect('/admin/konfirmasi')->send();
+  }
+
+  global $latte;
+  $latte->render('views/admin/masuk.latte');
+});
+
+$klein->respond('POST', '/masukadmin', function ($request, $response, $service) {
+  $email = $request->param('emailadmin');
+  $password = $request->param('passwordadmin');
+
+  $admin = new Akun();
+  $dataAdmin = $admin->getAkunAdmin($email, $password);
+
+  if (!empty($dataAdmin)) {
+    session_start();
+    $_SESSION['emailadmin'] = $email;
+
+    $response->redirect('/admin/konfirmasi')->send();
+  }
+
+  $response->redirect('/admin/masuk')->send();
+});
+
+$klein->respond('GET', '/keluaradmin', function ($request, $response, $service) {
+  session_start();
+  if (isset($_SESSION['emailadmin'])) {
+    $response->redirect('/')->send();
+  }
+  session_destroy();
+  $service->redirect('/')->send();
+});
+
+//END MASUK ADMIN
 
 $klein->respond('GET', '/daftar', function ($request, $response, $service) {
   session_start();

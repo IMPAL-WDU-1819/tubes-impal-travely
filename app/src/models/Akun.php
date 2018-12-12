@@ -38,4 +38,13 @@ class Akun extends Base {
 
     return json_encode($data);
   }
+
+  public function getAkunAdmin($email, $password) {
+    $data = $this->db->select('admin',
+      ['admin.email'],
+      ['admin.email' => $email, 'admin.password' => $password]
+    );
+
+    return json_encode($data);
+  }
 }
